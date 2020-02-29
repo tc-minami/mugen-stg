@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BulletType
+{
+    None, // Just for default value.
+    Normal,
+}
+
 public enum BulletHitType
 {
     Default,
@@ -9,13 +15,53 @@ public enum BulletHitType
     Trumple,
 }
 
+public enum BulletTriggerType
+{
+    WhileTap,
+    OnClick,
+    Auto,
+}
+
+public enum BulletAimType
+{
+    Target,
+    FixDir,
+}
+
+public static class BulletSpriteFilePath
+{
+    public const string Normal = "Sprites/bullet";
+}
+
 public class BulletInfo
 {
-    private float sizePercentage = 100.0f;
-    private float damage = 1.0f;
+    public float sizePercentage = 100.0f;
+    public float damage = 1.0f;
+    public float shootPeriod = 1.0f;
+    public float baseVelocity = 1.0f; // Basic speed of bullet
+    public Vector2 velocityPerSec = new Vector2(0, 0); // Actual move speed of bullet per sec.
 
-    private BulletHitType hitType = BulletHitType.Default;
+    public BulletHitType hitType = BulletHitType.Default;
+    public string spriteFilePath = BulletSpriteFilePath.Normal;
 
-    private Sprite image;
+    public void UpdateBulletInfo(BulletType _bulletType)
+    {
+        switch(_bulletType)
+        {
+            case BulletType.Normal:
+                sizePercentage = 100.0f;
+                damage = 1.0f;
+                shootPeriod = 1.0f;
+                baseVelocity = 1.0f;
+                hitType = BulletHitType.Default;
+                spriteFilePath = BulletSpriteFilePath.Normal;
+                break;
+        }
+    }
 
+    public void SetBulletVelocity(Vector2 _startPos, Vector2 _destPos)
+    {
+        Vector2 dirVel = _destPos - _startPos;
+        velocityPerSec = dirVel.normalized * baseVelocity;
+    }
 }

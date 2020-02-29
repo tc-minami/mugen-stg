@@ -86,8 +86,19 @@ public class GenericPool : MonoBehaviour
         string _poolObjName,
         bool _removeCurrentPooledObj = true)
     {
+        GameObject poolPrefabManager = GameObject.Find("PoolPrefabManager");
+        if(poolPrefabManager == null)
+        {
+            poolPrefabManager = GameObjectUtil.CreateInstance(null, "PoolPrefabManager");
+        }
+
+        // Destroy current pool object prefab if any.
+        DestoryPoolObjectPrefab();
+
         pooledObject = Object.Instantiate(_poolableObject);
         pooledObject.name = _poolObjName;
+        pooledObject.gameObject.SetActive(false);
+        pooledObject.transform.SetParent(poolPrefabManager.transform);
 
         if (_removeCurrentPooledObj)
         {
@@ -126,44 +137,6 @@ public class GenericPool : MonoBehaviour
         PoolableObject obj = GetPooledObject();
         if (obj == null) obj = CreatePooledObject();
         return obj;
-    }
-
-    /// <summary>
-    /// Clears the pooled objects.
-    /// </summary>
-    /// <param name="_clearRightNow">If set to <c>true</c> clear right now. Else will destroy when returned to pool.</param>
-    public void ClearPooledObjects(bool _clearRightNow = false)
-    {
-        foreach (Transform t in this.transform)
-        {
-            // Destroy all no matter if PoolObject is active or not.
-            if (_clearRightNow)
-            {
-                Destroy(t.gameObject);
-            }
-            else
-            {
-                PoolableObject poolObj = t.GetComponent<PoolableObject>();
-                // If PoolObject is currently used, reserve for destory.
-                if (poolObj != null && !queue.Contains(poolObj))
-                {
-                    poolObj.ReserveDestroyOnReturnPool(true);
-                }
-                // If PoolObject is not currently used, destroy.
-                else
-                {
-                    Destroy(t.gameObject);
-                }
-
-            }
-        }
-
-        PoolableObject obj = GetPooledObject();
-        while (obj != null)
-        {
-            Destroy(obj);
-            obj = GetPooledObject();
-        }
     }
 
     /// <summary>
@@ -227,4 +200,54 @@ public class GenericPool : MonoBehaviour
         if (queue != null) return;
         queue = new Queue<PoolableObject>();
     }
+
+    /// <summary>
+    /// Clears the pooled objects.
+    /// </summary>
+    /// <param name="_clearImmediately">If set to <c>true</c> clear right now. Else will destroy when returned to pool.</param>
+    public void ClearPooledObjects(bool _clearImmediately = false)
+    {
+        foreach (Transform t in this.transform)
+        {
+            // Destroy all no matter if PoolObject is active or not.
+            if (_clearImmediately)
+            {
+                Destroy(t.gameObject);
+            }
+            else
+            {
+                PoolableObject poolObj = t.GetComponent<PoolableObject>();
+                // If PoolObject is currently used, reserve for destory.
+                if (poolObj != null && !queue.Contains(poolObj))
+                {
+                    poolObj.ReserveDestroyOnReturnPool(true);
+                }
+                // If PoolObject is not currently used, destroy.
+                else
+                {
+                    Destroy(t.gameObject);
+                }
+
+            }
+        }
+
+        PoolableObject obj = GetPooledObject();
+        while (obj != null)
+        {
+            Destroy(obj);
+            obj = GetPooledObject();
+        }
+    }
+
+    /// <summary>
+    /// Destories the pool object prefab.
+    /// </summary>
+    public void DestoryPoolObjectPrefab()
+    {
+        if(pooledObject != null)
+        {
+            Destroy(pooledObject.gameObject);
+        }
+    }
+
 }

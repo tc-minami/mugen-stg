@@ -100,6 +100,15 @@ public class Timer : MonoBehaviour
     }
 
     /// <summary>
+    /// Is the timer active.
+    /// </summary>
+    /// <returns><c>true</c>, if timer active was ised, <c>false</c> otherwise.</returns>
+    public bool IsTimerActive()
+    {
+        return isTimerActive;
+    }
+
+    /// <summary>
     /// Gets the elapsed time.
     /// </summary>
     /// <returns>The elapsed time.</returns>

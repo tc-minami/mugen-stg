@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\Pool\PoolableObject.cs" />
     <Compile Include="Assets\Scripts\Unit\Bullet.cs" />
     <Compile Include="Assets\Scripts\Unit\BulletInfo.cs" />
+    <Compile Include="Assets\Scripts\Unit\BulletManager.cs" />
     <Compile Include="Assets\Scripts\Unit\Life.cs" />
     <Compile Include="Assets\Scripts\Unit\Unit.cs" />
     <Compile Include="Assets\Scripts\Util\GameObjectUtil.cs" />

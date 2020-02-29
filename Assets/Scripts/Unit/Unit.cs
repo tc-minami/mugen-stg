@@ -15,21 +15,17 @@ public class Unit : MonoBehaviour
     [SerializeField]
     private UnitType unitType;
 
-    // Bullet
-    private GenericPool bulletPool = null;
-    private bool autoFire = true;
+    private BulletManager bulletManager;
 
     void Start()
     {
-        PoolableObject bullet = PoolableObject.CreateNewPoolableObject<Bullet>(this.transform, "Bullet");
-        bulletPool = GenericPool.CreateNewPoolWithPrefab(bullet, this.transform);
-        bulletPool.SetMaxPoolSize(5);
-        Object.Destroy(bullet);
+        bulletManager = GameObjectUtil.CreateInstance<BulletManager>(this.transform, "BulletManager");
+        bulletManager.UpdateBulletType(BulletType.Normal);
     }
 
     // Update is called once per frame
     void Update()
     {
-        bulletPool.GetOrCreate();
+        //bulletPool.GetOrCreate();
     }
 }

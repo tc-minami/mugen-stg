@@ -8,16 +8,9 @@ public class PoolableObject : MonoBehaviour
     [SerializeField]
     private bool isDestroyOnReturnPool = false;
 
-    public static PoolableObject CreateNewPoolableObject(Transform _parent, string _name)
+    public static T CreateNewPoolableObject<T>(Transform _parent, string _name) where T : PoolableObject
     {
-        return GameObjectUtil.CreateInstance<PoolableObject>(_parent, _name);
-    }
-
-    public static PoolableObject CreateNewPoolableObject<T>(Transform _parent, string _name) where T : MonoBehaviour
-    {
-        PoolableObject poolableObj = CreateNewPoolableObject(_parent, _name);
-        poolableObj.gameObject.AddComponent<T>();
-        return poolableObj;
+        return GameObjectUtil.CreateInstance<T>(_parent, _name);
     }
 
     public void ReserveDestroyOnReturnPool(bool _doDestroy = true)
@@ -36,9 +29,4 @@ public class PoolableObject : MonoBehaviour
             Pool.ReturnPooledObject(this);
         }
     }
-
-    //protected new void Destroy(Object _obj)
-    //{
-    //    Return2Pool();
-    //}
 }
