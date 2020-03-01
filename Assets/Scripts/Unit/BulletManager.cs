@@ -7,6 +7,8 @@ using UnityEngine;
 /// </summary>
 public class BulletManager : MonoBehaviour
 {
+    public bool IsAllyBullet { get; set; }
+
     private GenericPool bulletPool = null;
     private BulletType bulletType = BulletType.None;
     private BulletTriggerType bulletTriggerType = BulletTriggerType.Auto;
@@ -21,6 +23,7 @@ public class BulletManager : MonoBehaviour
     private Vector2[] startPos = new Vector2[] { new Vector2(0.0f, 0.0f) };
     private Vector2[] destPos = new Vector2[] { new Vector2(0.0f, 1.0f) };
     private Transform[] targets = new Transform[] { null };
+
 
     public void UpdateBulletType(BulletType _bulletType)
     {
@@ -71,14 +74,18 @@ public class BulletManager : MonoBehaviour
                 continue;
             }
 
+            // Update bullet status.
+            bullet.UpdateBulletInfo(this.bulletType);
+            bullet.ApplyBulletInfo();
+
             bullet.gameObject.SetActive(true);
             if(this.aimType == BulletAimType.FixDir)
             {
-                bullet.SetBulletVelocity(startPos[i], destPos[i]);
+                bullet.bulletInfo.SetBulletVelocity(startPos[i], destPos[i]);
             }
             else
             {
-                bullet.SetBulletVelocity(startPos[i], targets[i].transform.position);
+                bullet.bulletInfo.SetBulletVelocity(startPos[i], targets[i].transform.position);
             }
             isBulletShot = true;
         }
@@ -90,7 +97,7 @@ public class BulletManager : MonoBehaviour
     {
         if (bulletPool == null)
         {
-            bulletPool = GenericPool.CreateNewPool(this.transform, "BulletPool", 1);
+            bulletPool = GenericPool.CreateNewPool(this.transform, "BulletPool", 100);
         }
 
         Bullet bullet = CreateBulletPrefab(this.bulletType);
@@ -101,7 +108,8 @@ public class BulletManager : MonoBehaviour
     private Bullet CreateBulletPrefab(BulletType _bulletType)
     {
         Bullet bulletPoolObj = PoolableObject.CreateNewPoolableObject<Bullet>(this.transform, "Bullet");
-        bulletPoolObj.UpdateBulletInfo(_bulletType);
+        bulletPoolObj.InitBullet(_bulletType, IsAllyBullet);
+
         bulletShootPeriod = bulletPoolObj.bulletInfo.shootPeriod;
         return bulletPoolObj;
     }

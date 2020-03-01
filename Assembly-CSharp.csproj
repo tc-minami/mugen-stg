@@ -63,11 +63,13 @@
     <Compile Include="Assets\Scripts\Const.cs" />
     <Compile Include="Assets\Scripts\Pool\GenericPool.cs" />
     <Compile Include="Assets\Scripts\Pool\PoolableObject.cs" />
+    <Compile Include="Assets\Scripts\StageManager.cs" />
     <Compile Include="Assets\Scripts\Unit\Bullet.cs" />
     <Compile Include="Assets\Scripts\Unit\BulletInfo.cs" />
     <Compile Include="Assets\Scripts\Unit\BulletManager.cs" />
     <Compile Include="Assets\Scripts\Unit\Life.cs" />
     <Compile Include="Assets\Scripts\Unit\Unit.cs" />
+    <Compile Include="Assets\Scripts\Unit\UnitInfo.cs" />
     <Compile Include="Assets\Scripts\Util\GameObjectUtil.cs" />
     <Compile Include="Assets\Scripts\Util\Timer.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">

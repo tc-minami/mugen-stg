@@ -35,7 +35,7 @@ public static class BulletSpriteFilePath
 
 public class BulletInfo
 {
-    public float sizePercentage = 100.0f;
+    public float sizeScale = 1.0f;
     public float damage = 1.0f;
     public float shootPeriod = 1.0f;
     public float baseVelocity = 1.0f; // Basic speed of bullet
@@ -49,10 +49,10 @@ public class BulletInfo
         switch(_bulletType)
         {
             case BulletType.Normal:
-                sizePercentage = 100.0f;
+                sizeScale = 0.3f;
                 damage = 1.0f;
                 shootPeriod = 1.0f;
-                baseVelocity = 1.0f;
+                baseVelocity = 10.0f;
                 hitType = BulletHitType.Default;
                 spriteFilePath = BulletSpriteFilePath.Normal;
                 break;

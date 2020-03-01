@@ -66,6 +66,15 @@ public class Timer : MonoBehaviour
     }
 
     /// <summary>
+    /// Runs the infinite timer.
+    /// </summary>
+    public void RunInfiniteTimer()
+    {
+        // If max time is less than or equal 0, it is assumed as timer for infinite.
+        RunTimer(-1.0f, false);
+    }
+
+    /// <summary>
     /// Sets the max timer sec.
     /// </summary>
     /// <param name="_sec">Sec.</param>
@@ -123,7 +132,9 @@ public class Timer : MonoBehaviour
     /// <returns>The remain time.</returns>
     public float GetRemainTime()
     {
-        return maxTimerSec - timeElapsed;
+        return maxTimerSec <= 0.0f
+            ? 0.0f
+            : maxTimerSec - timeElapsed;
     }
 
     /// <summary>
@@ -151,6 +162,10 @@ public class Timer : MonoBehaviour
         if (!isTimerActive) return;
 
         timeElapsed += Time.deltaTime;
+
+        // When no timer limit is set.
+        if(maxTimerSec <= 0.0f) return;
+        
         if (timeElapsed >= maxTimerSec)
         {
             timeElapsed = maxTimerSec;

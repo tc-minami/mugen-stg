@@ -9,13 +9,37 @@ public class Bullet : PoolableObject
     public void UpdateBulletInfo(BulletType _bulletType)
     {
         bulletInfo.UpdateBulletInfo(_bulletType);
-        SpriteRenderer bulletRenderer = this.gameObject.AddComponent<SpriteRenderer>();
-        bulletRenderer.sprite = Resources.Load<Sprite>(bulletInfo.spriteFilePath);
     }
 
-    public void SetBulletVelocity(Vector2 _startPos, Vector2 _destPos)
+    public void ApplyBulletInfo()
     {
-        bulletInfo.SetBulletVelocity(_startPos, _destPos);
+        transform.localScale = new Vector2(
+                bulletInfo.sizeScale,
+                bulletInfo.sizeScale);
+    }
+
+    public void InitBullet(BulletType _bulletType, bool _isAlly)
+    {
+        UpdateBulletInfo(_bulletType);
+
+        SpriteRenderer bulletRenderer = gameObject.AddComponent<SpriteRenderer>();
+        bulletRenderer.sprite = Resources.Load<Sprite>(bulletInfo.spriteFilePath);
+        CircleCollider2D col = gameObject.AddComponent<CircleCollider2D>();
+        col.isTrigger = true;
+        col.tag = _isAlly ? Const.Tag.AllyBullet : Const.Tag.EnemyBullet;
+    }
+
+    /// <summary>
+    /// Called when bullet hits any object.
+    /// </summary>
+    /// <param name="_col">Col.</param>
+    void OnTriggerEnter2D(Collider2D _col)
+    {
+        if(Const.Tag.IsUnit(_col.tag)
+            && Const.Tag.IsBulletHitValid(_col.tag, this.tag))
+        {
+            Return2Pool();
+        }
     }
 
     /// <summary>
@@ -23,7 +47,6 @@ public class Bullet : PoolableObject
     /// </summary>
     public void OnHit()
     {
-        Return2Pool();
     }
 
     // Start is called before the first frame update

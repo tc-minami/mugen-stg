@@ -1,14 +1,18 @@
 ﻿<Properties StartupConfiguration="{7B068493-FD0C-AB55-8A90-0620256F0E98}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Unit/Unit.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Unit/BulletManager.cs">
     <Files>
       <File FileName="Assets/Scripts/Pool/GenericPool.cs" Line="77" Column="5" />
       <File FileName="Assets/Scripts/Util/GameObjectUtil.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Unit/Bullet.cs" Line="41" Column="1" />
-      <File FileName="Assets/Scripts/Pool/PoolableObject.cs" Line="12" Column="6" />
-      <File FileName="Assets/Scripts/Unit/BulletInfo.cs" Line="42" Column="58" />
-      <File FileName="Assets/Scripts/Unit/Unit.cs" Line="21" Column="1" />
-      <File FileName="Assets/Scripts/Unit/BulletManager.cs" Line="68" Column="3" NotebookId="1" />
-      <File FileName="Assets/Scripts/Util/Timer.cs" Line="59" Column="17" NotebookId="1" />
+      <File FileName="Assets/Scripts/Pool/PoolableObject.cs" Line="6" Column="2" />
+      <File FileName="Assets/Scripts/Unit/BulletInfo.cs" Line="39" Column="32" />
+      <File FileName="Assets/Scripts/Unit/Unit.cs" Line="9" Column="1" />
+      <File FileName="Assets/Scripts/Const.cs" Line="14" Column="9" />
+      <File FileName="Assets/Scripts/StageManager.cs" Line="14" Column="9" />
+      <File FileName="Assets/Scripts/StageManager.cs" Line="1" Column="1" NotebookId="1" />
+      <File FileName="Assets/Scripts/Util/Timer.cs" Line="15" Column="21" NotebookId="1" />
+      <File FileName="Assets/Scripts/Unit/UnitInfo.cs" Line="10" Column="9" NotebookId="1" />
+      <File FileName="Assets/Scripts/Unit/Bullet.cs" Line="9" Column="29" NotebookId="1" />
+      <File FileName="Assets/Scripts/Unit/BulletManager.cs" Line="80" Column="1" NotebookId="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
